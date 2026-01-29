@@ -121,7 +121,15 @@ export class PhysicsEngine {
       } else {
         // NORMAL OPERATION
         const availableTorque = this.getEngineTorque(rpm);
-        engineTorque = availableTorque * gasPosition;
+
+        // FIX: ENGINE BRAKING LOGIC
+        if (gasPosition < 0.01) {
+          // When gas is released, apply negative torque (engine braking)
+          // Proportional to RPM
+          engineTorque = -(rpm * 0.05);
+        } else {
+          engineTorque = availableTorque * gasPosition;
+        }
       }
 
       // --- SCENARIO 1: HARD STALL CHECK (Shift without Clutch) ---
@@ -216,7 +224,13 @@ export class PhysicsEngine {
         // CREEP LOGIC (Auto-move at bite point)
         // If in bite zone, having RPM, but low gas -> Flywheel inertia moves car
         let creepTorque = 0;
-        if (gasPosition < 0.1 && rpm > 400 && clutchLoadFactor > 0.1) {
+        // FIX: Added '&& rpm < 1200' to prevent creep torque at high speeds (Ghost Gas fix)
+        if (
+          gasPosition < 0.1 &&
+          rpm > 400 &&
+          rpm < 1200 &&
+          clutchLoadFactor > 0.1
+        ) {
           // UPDATED: Increased torque from 200 to 450 to overcome inertia
           creepTorque = 450 * gearRatio * clutchLoadFactor;
         }
