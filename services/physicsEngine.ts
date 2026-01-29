@@ -182,9 +182,9 @@ export class PhysicsEngine {
 
         // 3. Stall Effect in Bite Zone
         // If biting but no gas, load drags RPM down
-        if (gasPosition < 0.05 && Math.abs(speed) < 5) {
-          // UPDATED: Reduced drag from 1500 to 500 to allow creep
-          rpm -= 500 * clutchLoadFactor * dt;
+        if (gasPosition < 0.1 && Math.abs(speed) < 10) {
+          // UPDATED: Decreased drag from 500 to 300 to simulate HEAVY FLYWHEEL (harder to stall)
+          rpm -= 300 * clutchLoadFactor * dt;
         }
       }
 

@@ -34,10 +34,10 @@ export const PHYSICS = {
 
   // GEAR RATIOS (Realistic 5-speed transmission)
   GEAR_RATIOS: {
-    [Gear.Reverse]: 4.0, // High torque for easier reversing
+    [Gear.Reverse]: 4.0,
     [Gear.Neutral]: 0,
-    [Gear.First]: 3.5, // High torque, low speed
-    [Gear.Second]: 2.1,
+    [Gear.First]: 4.2, // UPDATED: Increased from 3.5 to 4.2 for massive starting torque
+    [Gear.Second]: 2.4, // UPDATED: Adjusted to match 1st gear change
     [Gear.Third]: 1.4,
     [Gear.Fourth]: 1.0,
     [Gear.Fifth]: 0.8, // Overdrive (Top speed gear)
@@ -47,10 +47,11 @@ export const PHYSICS = {
   // Engine feels weak low down, kicks in at 4000, drops at 7000
   TORQUE_CURVE: [
     { rpm: 0, torque: 0 },
-    { rpm: 800, torque: 120 }, // Idle torque
-    { rpm: 2000, torque: 180 }, // Power starts building
-    { rpm: 4000, torque: 260 }, // Peak torque start
-    { rpm: 5500, torque: 250 }, // Peak HP maintained
+    { rpm: 800, torque: 250 }, // UPDATED: Massive boost from 120 to 250 (Diesel-like low end)
+    { rpm: 1500, torque: 280 }, // NEW: Strong mid-low range
+    { rpm: 2000, torque: 300 },
+    { rpm: 4000, torque: 320 }, // Peak raised
+    { rpm: 5500, torque: 300 },
     { rpm: 7200, torque: 150 }, // Drastic drop at limiter
   ],
 };
