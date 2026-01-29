@@ -224,14 +224,14 @@ export class PhysicsEngine {
         // CREEP LOGIC (Auto-move at bite point)
         // If in bite zone, having RPM, but low gas -> Flywheel inertia moves car
         let creepTorque = 0;
-        // FIX: Added '&& rpm < 1200' to prevent creep torque at high speeds (Ghost Gas fix)
+        // FIX: Widened RPM range (300-1500) and increased gas tolerance (0.3)
+        // This prevents Creep from dying when RPM dips due to load
         if (
-          gasPosition < 0.1 &&
-          rpm > 400 &&
-          rpm < 1200 &&
+          gasPosition < 0.3 &&
+          rpm > 300 &&
+          rpm < 1500 &&
           clutchLoadFactor > 0.1
         ) {
-          // UPDATED: Increased torque from 200 to 450 to overcome inertia
           creepTorque = 450 * gearRatio * clutchLoadFactor;
         }
 
