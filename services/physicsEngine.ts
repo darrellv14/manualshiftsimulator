@@ -185,7 +185,9 @@ export class PhysicsEngine {
         // 2. Engine Power fighting the Load
         if (gasPosition > 0 && !isRevLimited) {
           // Engine fights back based on gas
-          rpm += 3000 * gasPosition * dt * (1.0 - clutchLoadFactor * 0.5);
+          // MODIFIED: Reduced from 3000 to 1500 for heavier flywheel/inertia
+          // MODIFIED: Increased load factor resistance from 0.5 to 0.8
+          rpm += 1500 * gasPosition * dt * (1.0 - clutchLoadFactor * 0.8);
         }
 
         // 3. Stall Effect in Bite Zone
