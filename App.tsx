@@ -109,7 +109,7 @@ const App: React.FC = () => {
         // --- AXIS MAPPING (Analog Stick & Triggers) ---
         // Left Stick X (Index 0) -> Steering (-1 Left, 1 Right)
         if (Math.abs(gp.axes[0]) > 0.1) { // Deadzone 0.1
-            gpSteer = gp.axes[0];
+            gpSteer = -gp.axes[0];
         }
 
         // Right Trigger (Button 7 biasanya) -> Gas (0 to 1)
